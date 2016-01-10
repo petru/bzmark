@@ -1,33 +1,69 @@
 # encoding: UTF-8
 require 'rmagick'
 class Bzmark
-  def add_belt(file)
-    img = Magick::Image.read(file).first
-    mark = Magick::Image.read("assets/belt.png").first
+
+  # paths
+  @@templates = "assets/templates/"
+  @@input = "input/"
+  @@output = "output/"  
+  
+  # draw settings
+  @@font = "assets/fonts/opensans/OpenSans-Semibold.ttf"
+  @@pointsize = 14
+  @@fill = "#202530"
+  
+  
+  def initialize(file)
     
-    img2 = img.composite(mark,0,0,Magick::OverCompositeOp)
-    img2.write("output/ake.png")
+    data = file.split(".")[0].split("^")
+    
+    @file = file
+    @template = data[0]
+    @line1 = data[1]
+    @line2 = line2[2]
+    
   end
   
-  def add_text(line1, line2)
-    img = Magick::Image.read("output/ake.png").first
-    draw = Magick::Draw.new
+  def template
+    return @@templates + @template + ".png"
+  end
+  
+  def dump
+    @source.write(@@output + @template + @line1 + ".png")
+  end
+  
+  
+  def add_belt
+    mark = Magick::Image.read(template).first
+    @source = img.composite(mark,0,0,Magick::OverCompositeOp)
+  end
+  
+  def add_text
+    caption = Magick::Draw.new
     
-    draw.annotate(img, 382, 27, 110, 258, "Tragedie în a doua zi de Crăciun") do
-      draw.font = "assets/fonts/opensans/OpenSans-Semibold.ttf"
-      draw.pointsize = 14
-      draw.fill = "#202530"
-      draw.stroke = "none"
+    caption.annotate(@source, 382, 27, 110, 258, @line1) do
+      caption.font = @@font
+      caption.pointsize = @@pointsize
+      caption.fill = @@fill
+      caption.stroke = "none"
     end
     
-    draw.annotate(img, 382, 27, 110, 278, "Bătrână decedată în urma intoxicației cu fum") do
-      draw.font = "assets/fonts/opensans/OpenSans-Semibold.ttf"
-      draw.pointsize = 14
-      draw.fill = "#202530"
-      draw.stroke = "none"
+    if @line2 
+      caption.annotate(@source, 382, 27, 110, 278, @line2) do
+        caption.font = @@font
+        caption.pointsize = @@pointsize
+        caption.fill = @@fill
+        caption.stroke = "none"
+      end
     end
-    img.write("output/ake2.png")
+  end
+  
+  def process
+    @source = Magick::Image.read(@@input + @file).first
+    add_belt
+    add_text
+    dump
   end
 end
-#add_belt("input/amb.jpg")
-add_text("asda","asdasd")
+
+img = Bzmark.new("sport^Tragedie în a doua zi de Crăciun.png")
