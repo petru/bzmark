@@ -6,4 +6,5 @@ files.each { |file|
     img.process
     puts "Processing #{file}..."
 }
-puts "Done."
+puts "Done. Press ENTER to exit."
+gets
