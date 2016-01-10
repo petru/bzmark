@@ -20,7 +20,7 @@ class Bzmark
     @file = file
     @template = data[0]
     @line1 = data[1]
-    @line2 = line2[2]
+    @line2 = data[2]
     
   end
   
@@ -35,7 +35,7 @@ class Bzmark
   
   def add_belt
     mark = Magick::Image.read(template).first
-    @source = img.composite(mark,0,0,Magick::OverCompositeOp)
+    @source = @source.composite(mark,0,0,Magick::OverCompositeOp)
   end
   
   def add_text
@@ -65,5 +65,3 @@ class Bzmark
     dump
   end
 end
-
-img = Bzmark.new("sport^Tragedie în a doua zi de Crăciun.png")
