@@ -35,5 +35,5 @@ build/
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
 ## Specific to bzmark:
-/input/*
-/output/*
+/input/*.jpg
+/output/*.png
