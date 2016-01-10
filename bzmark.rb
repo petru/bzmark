@@ -41,7 +41,7 @@ class Bzmark
   def add_text
     caption = Magick::Draw.new
     
-    caption.annotate(@source, 382, 27, 110, 258, @line1) do
+    caption.annotate(@source, 382, 27, 110, 278, @line1) do
       caption.font = @@font
       caption.pointsize = @@pointsize
       caption.fill = @@fill
@@ -49,7 +49,7 @@ class Bzmark
     end
     
     if @line2 
-      caption.annotate(@source, 382, 27, 110, 278, @line2) do
+      caption.annotate(@source, 382, 27, 110, 298, @line2) do
         caption.font = @@font
         caption.pointsize = @@pointsize
         caption.fill = @@fill
