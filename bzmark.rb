@@ -60,6 +60,7 @@ class Bzmark
   
   def process
     @source = Magick::Image.read(@@input + @file).first
+    @source.resize_to_fill!(532,356,Magick::CenterGravity)
     add_belt
     add_text
     dump
