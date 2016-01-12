@@ -15,7 +15,8 @@ class Bzmark
   
   def initialize(file)
     
-    data = file.split(".")[0].split("^")
+    filename = file.split(".")
+    data = filename[0,filename.length-1].join(".").split("^")
     
     @file = file
     @template = data[0]
